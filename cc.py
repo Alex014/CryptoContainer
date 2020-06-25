@@ -379,7 +379,6 @@ def page_msg(param_sub, param_name):
             else:
                 return False
         else:
-            print(userlist)
             if username not in userlist:
                 print("Error: {} not found in container users list ".format(username))
                 return False
