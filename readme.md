@@ -14,9 +14,9 @@ Blowfish - for private messages encryption
 ### Instalation
 
 * git clone https://github.com/Alex014/CryptoContainer.git
-* python pip install pycrypto
-* python pip install rsa
-* RUN cc.py - View help page
+* pip install pycrypto
+* pip install rsa
+* python cc.py - View help page
 * python cc.py U+user1 - generate user user1
 * python cc.py Uuser1 - select user user1
 * python cc.py C+container1 - generate container1
