@@ -119,6 +119,9 @@ def page_container(param_sub, container_name):
             print("No container selected")
             return False
 
+        if config['upload'] == '':
+            print("Upload path not defined, type 'cc.py Fupload=my_upload_path'")
+
         if cnt.container_exists(container_name):
             if cnt.save(container_name):
                 cnt.decrypt(container_name)
@@ -158,7 +161,10 @@ def page_container(param_sub, container_name):
         else:
             print("Container {} does not exist".format(container_name))
     elif param_sub == '^':
-        cnt.sync()
+        if config['remote'] != '':
+            cnt.sync()
+        else:
+            print("Remote path not defined, type 'cc.py Fremote=my_remote_path'")
         return
     elif param_sub == '#':
         if container_name == '':
@@ -232,13 +238,16 @@ def page_users(param_sub, username):
         if cnt.user_exists(username):
             print("User {} olready exists".format(username))
         else:
-            if cnt.generate_user(username):
-                print("User {} generated OK".format(username))
+            ask = input("The user generation may take several minutes on slow machines, GENERATE user {} (y/n) :".format(username))
+            if ask.lower()[0:1] == 'y':
+                if cnt.generate_user(username):
+                    print("User {} generated OK".format(username))
     elif param_sub == '-':
         if cnt.user_exists(username):
             ask = input("Delete user {}, you will not be able to restore it (y/n) :".format(username))
-            if cnt.delete_user(username):
-                print("User {} deleted OK".format(username))
+            if ask.lower()[0:1] == 'y':
+                if cnt.delete_user(username):
+                    print("User {} deleted OK".format(username))
         else:
             print("User '{}' does not exist".format(username))
     else:
@@ -274,6 +283,10 @@ def page_pub(param_sub, param_name):
     pub_messages = local_storage.list_pub_messages(config['container'])
 
     if param_sub in ('+', '='):
+        if config['Editor'] == '':
+            print("Editor not defined, type 'cc.py Feditor=my_editor'")
+            return
+
         if len(pub_messages) and config['user'] in pub_messages:
             # print(pub_messages[config['user']])
             os.system(config['editor'] + ' ' + pub_messages[config['user']]['filename'])
@@ -326,6 +339,10 @@ def page_msg(param_sub, param_name):
     userlist = sorted(cnt.list_users())
 
     if param_sub == '+':
+        if config['Editor'] == '':
+            print("Editor not defined, type 'cc.py Feditor=my_editor'")
+            return
+
         params = param_name.split('+')
         username = ''
         subject = ''
@@ -370,6 +387,10 @@ def page_msg(param_sub, param_name):
         os.system(config['editor'] + ' "' + filename + '"')
         return
     elif param_sub == '=':
+        if config['Editor'] == '':
+            print("Editor not defined, type 'cc.py Feditor=my_editor'")
+            return
+
         if len(priv_messages_user) > 0:
             print('Select message to edit:')
             i = 0
