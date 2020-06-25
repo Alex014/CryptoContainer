@@ -29,6 +29,14 @@ class DI:
     def create_local_storage():
         if not hasattr(DI, 'local_storage'):
             DI.local_storage = LocalStorageFS()
+
+            DI.local_storage.default_config = {
+                  "user": "",
+                  "container": "",
+                  "remote": "",
+                  "upload": "",
+                  "editor": ""
+                }
         return DI.local_storage
 
     @staticmethod

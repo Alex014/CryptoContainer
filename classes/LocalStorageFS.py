@@ -13,6 +13,14 @@ class LocalStorageFS(BaseLocalStorage):
         self.path_etc = self.path_cwd + '/etc'
         self.file_users = self.path_etc + '/users.json'
 
+        self.default_config = {
+              "user": "",
+              "container": "",
+              "remote": "",
+              "upload": "",
+              "editor": ""
+            }
+
         if not os.path.isdir(self.path_containers):
             os.mkdir(self.path_containers)
         if not os.path.isdir(self.path_etc):
@@ -325,7 +333,7 @@ class LocalStorageFS(BaseLocalStorage):
             file.close()
             return json.loads(s_config)
         else:
-            return {}
+            return self.default_config
 
     def save_config(self, config):
         file_config = self.path_etc + '/config.json'
