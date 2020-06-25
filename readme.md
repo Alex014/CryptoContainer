@@ -24,6 +24,13 @@ Blowfish - for private messages encryption
 * python cc.py Fremote=/run/media/user/DDD/+upload=/run/media/user/DDD/+editor=nano - remote: remote dir to scan, upload: dir to upload containers, editor - nano
  
  python3 and pip3 in Ubuntu
+ 
+### Saving and synchronizing
+
+* python cc.py C@ - saving current container
+* python cc.py C# - uploading current container on flash drive
+* python cc.py C^ - download and synchronize fresh copies of all containers 
+* P* and M* commands to PUBLIC and INBOX messages
   
 ### Comands
  * C: container
