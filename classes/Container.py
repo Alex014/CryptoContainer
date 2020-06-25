@@ -105,7 +105,7 @@ class Container:
             container = self.localStorage.get_encrypted_container(container_name)
 
         t = datetime.fromtimestamp(time.time())
-        container['container']['synchronized'] = t.strftime("%Y-%m-%d %H:%M:%S:%S")
+        container['container']['synchronized'] = t.strftime("%Y-%m-%d %H:%M:%S")
 
         # syncing users
         for username in container_data['users']:

@@ -133,8 +133,7 @@ def page_container(param_sub, container_name):
         if cnt.container_exists(container_name):
             container = cnt.get_container(container_name)
             print("Container '{}': ".format(container_name))
-            t = datetime.fromtimestamp(int(container['container']['synchronized']))
-            print("Synchronized: {} ".format(t.strftime("%Y-%m-%d %H:%M")))
+            print("Synchronized: {} ".format(container['container']['synchronized']))
             users = cnt.list_container_users(container_name)
             uu = []
             for user in users:
