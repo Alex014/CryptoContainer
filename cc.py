@@ -234,6 +234,7 @@ def page_users(param_sub, username):
 
         if len(users_list) == 0:
             print("You have no users")
+            print("type 'cc.py U+username' to generate user")
         else:
             users_list = sorted(users_list)
             print("My users: {}".format(", ".join(users_list)))
@@ -454,6 +455,7 @@ def page_status():
 
     if len(uu) == 0:
         print("You have no users")
+        print("type 'cc.py U+username' to generate user")
     else:
         uu = sorted(uu)
         print("My users: {}".format(", ".join(uu)))
