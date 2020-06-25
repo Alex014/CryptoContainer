@@ -115,7 +115,7 @@ def page_container(param_sub, container_name):
             print("No container selected")
             return False
 
-        if config['upload'] == '':
+        if 'upload' in config and config['upload'] == '':
             print("Upload path not defined, type 'cc.py Fupload=my_upload_path'")
 
         if cnt.container_exists(container_name):
@@ -157,7 +157,7 @@ def page_container(param_sub, container_name):
         else:
             print("Container {} does not exist".format(container_name))
     elif param_sub == '^':
-        if config['remote'] != '':
+        if 'remote' in config and config['remote'] != '':
             cnt.sync()
         else:
             print("Remote path not defined, type 'cc.py Fremote=my_remote_path'")
@@ -264,10 +264,10 @@ def page_pub(param_sub, param_name):
     local_storage = DI.create_local_storage()
     config = DI.get_config()
 
-    if not config['container']:
+    if 'container' not in config or config['container'] == '':
         print("You have no selected container, type 'cc.py Ccontainer_name' to select container")
         return False
-    if not config['user']:
+    if 'user' not in config or config['user'] == '':
         print("You have no selected user, type 'cc.py Uusername' to select user")
         return False
 
@@ -280,7 +280,7 @@ def page_pub(param_sub, param_name):
     pub_messages = local_storage.list_pub_messages(config['container'])
 
     if param_sub in ('+', '='):
-        if config['Editor'] == '':
+        if 'editor' not in config or config['editor'] == '':
             print("Editor not defined, type 'cc.py Feditor=my_editor'")
             return
 
@@ -333,7 +333,7 @@ def page_msg(param_sub, param_name):
     userlist = sorted(cnt.list_users())
 
     if param_sub == '+':
-        if config['Editor'] == '':
+        if 'editor' not in config or config['editor'] == '':
             print("Editor not defined, type 'cc.py Feditor=my_editor'")
             return
 
@@ -381,7 +381,7 @@ def page_msg(param_sub, param_name):
         os.system(config['editor'] + ' "' + filename + '"')
         return
     elif param_sub == '=':
-        if config['Editor'] == '':
+        if 'editor' not in config or config['editor'] == '':
             print("Editor not defined, type 'cc.py Feditor=my_editor'")
             return
 
@@ -460,7 +460,7 @@ def page_status():
         uu = sorted(cc)
         print("Containers: {}".format(", ".join(uu)))
 
-        if config['container']:
+        if 'container' in config and config['container'] != '':
             container = cnt.get_container(config['container'])
 
             print("Container '{}': ".format(config['container']))
