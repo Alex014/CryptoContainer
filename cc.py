@@ -115,6 +115,10 @@ def page_container(param_sub, container_name):
             print("No container selected")
             return False
 
+        if 'user' not in config or config['user'] == '' or config['user'] not in cnt.list_users():
+            print("You have no selected user, type 'cc.py Uusername' to select user")
+            return False
+
         if 'upload' in config and config['upload'] == '':
             print("Upload path not defined, type 'cc.py Fupload=my_upload_path'")
 
@@ -261,13 +265,15 @@ def page_users(param_sub, username):
 
 
 def page_pub(param_sub, param_name):
+    cnt = DI.create_container()
     local_storage = DI.create_local_storage()
     config = DI.get_config()
 
     if 'container' not in config or config['container'] == '':
         print("You have no selected container, type 'cc.py Ccontainer_name' to select container")
         return False
-    if 'user' not in config or config['user'] == '':
+
+    if 'user' not in config or config['user'] == '' or config['user'] not in cnt.list_users():
         print("You have no selected user, type 'cc.py Uusername' to select user")
         return False
 
@@ -322,6 +328,10 @@ def page_msg(param_sub, param_name):
         print("Container {} does not exist".format(config['container']))
         return False
 
+    if 'user' not in config or config['user'] == '' or config['user'] not in cnt.list_users():
+        print("You have no selected user, type 'cc.py Uusername' to select user")
+        return False
+
     from_username = config['user']
 
     priv_messages = local_storage.list_priv_messages(config['container'])
@@ -330,7 +340,7 @@ def page_msg(param_sub, param_name):
         if priv_messages[filename]['from'] == from_username:
                 priv_messages_user.append(priv_messages[filename])
 
-    userlist = sorted(cnt.list_users())
+    userlist = sorted(cnt.list_container_users(config['container']))
 
     if param_sub == '+':
         if 'editor' not in config or config['editor'] == '':
@@ -348,11 +358,11 @@ def page_msg(param_sub, param_name):
         if len(params) > 2:
             i = 2
 
-        while len(params) > i:
-            if reply != '':
-                reply += '+'
-            reply += params[i]
-            i += 1
+            while len(params) > i:
+                if reply != '':
+                    reply += '+'
+                reply += params[i]
+                i += 1
 
         if reply[0:1] == '%':
             reply = reply.replace('+', ' ')
@@ -369,6 +379,7 @@ def page_msg(param_sub, param_name):
             else:
                 return False
         else:
+            print(userlist)
             if username not in userlist:
                 print("Error: {} not found in container users list ".format(username))
                 return False

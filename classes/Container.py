@@ -158,6 +158,7 @@ class Container:
         container = self.localStorage.get_encrypted_container(container_name)
         # print(container)
         users = self.localStorage.list_users()
+        container_users = self.list_container_users(container_name)
         users_used = []
         # print(users)
 
@@ -224,7 +225,7 @@ class Container:
                 'subject': final_priv_message['subject'],
             }
 
-            enc = self.cryptor.encrypt_multiple(edata, users[username_to]['pub'])
+            enc = self.cryptor.encrypt_multiple(edata, container['users'][username_to])
 
             final_priv_message['msg'] = base64.b64encode(enc[0]['msg']).decode('utf-8')
             final_priv_message['subject'] = base64.b64encode(enc[0]['subject']).decode('utf-8')
@@ -237,9 +238,6 @@ class Container:
 
             if not username_from in users_used:
                 users_used.append(username_from)
-
-            if users[username_to]:
-                users_used.append(username_to)
 
             os.unlink(priv_message['filename'])
 
