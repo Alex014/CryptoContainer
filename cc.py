@@ -232,8 +232,12 @@ def page_users(param_sub, username):
                 user = '<' + user + '>'
             users_list.append(user)
 
-        users_list = sorted(users_list)
-        print("My users: {}".format(", ".join(users_list)))
+        if len(users_list) == 0:
+            print("You have no users")
+        else:
+            users_list = sorted(users_list)
+            print("My users: {}".format(", ".join(users_list)))
+
     elif param_sub == '+':
         if cnt.user_exists(username):
             print("User {} olready exists".format(username))
@@ -448,8 +452,11 @@ def page_status():
             user = '<' + user + '>'
         uu.append(user)
 
-    uu = sorted(uu)
-    print("My users: {}".format(", ".join(uu)))
+    if len(uu) == 0:
+        print("You have no users")
+    else:
+        uu = sorted(uu)
+        print("My users: {}".format(", ".join(uu)))
 
     containers = cnt.list_containers()
     if len(containers):
