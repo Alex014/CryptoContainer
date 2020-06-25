@@ -86,13 +86,9 @@ def page_config(param_full):
 
 
 def page_container(param_sub, container_name):
-    local_storage = LocalStorageFS()
-    config = local_storage.get_config()
-    scanner = ScanerJSON()
-    remote_storage = RemoteStorageFS(scanner, config['remote'])
-    cryptor = CryptorRSA(rsa_bits=512, blowfish_bits=256)
-
-    cnt = Container(local_storage, remote_storage, cryptor)
+    local_storage = DI.create_local_storage()
+    config = DI.get_config()
+    cnt = DI.create_container()
 
     if param_sub == '+':
         if cnt.generate_container(container_name):
@@ -187,7 +183,7 @@ def page_container(param_sub, container_name):
 
         if len(containers) == 0:
             print('There are no containers')
-            print('Type cc.py C+container_name to generate container')
+            print('Type \'cc.py C+container_name\' to generate container')
             return False
 
         if container_name in containers:
@@ -201,7 +197,7 @@ def page_container(param_sub, container_name):
 
         if len(containers) == 0:
             print('There are no containers')
-            print('Type cc.py C+container_name to generate container')
+            print('Type \'cc.py C+container_name\' to generate container')
             return False
 
         cc = []
@@ -216,13 +212,9 @@ def page_container(param_sub, container_name):
 
 
 def page_users(param_sub, username):
-    local_storage = LocalStorageFS()
+    local_storage = DI.create_local_storage()
     config = DI.get_config()
-    scanner = ScanerJSON()
-    remote_storage = RemoteStorageFS(scanner, config['remote'])
-    cryptor = CryptorRSA(rsa_bits=512, blowfish_bits=256)
-
-    cnt = Container(local_storage, remote_storage, cryptor)
+    cnt = DI.create_container()
 
     if param_sub == '':
         users = cnt.list_users()
@@ -322,12 +314,9 @@ def page_pub(param_sub, param_name):
 
 
 def page_msg(param_sub, param_name):
-    local_storage = LocalStorageFS()
-    config = local_storage.get_config()
-    scanner = ScanerJSON()
-    remote_storage = RemoteStorageFS(scanner, config['remote'])
-    cryptor = CryptorRSA(rsa_bits=512, blowfish_bits=256)
-    cnt = Container(local_storage, remote_storage, cryptor)
+    local_storage = DI.create_local_storage()
+    config = DI.get_config()
+    cnt = DI.create_container()
 
     if not cnt.container_exists(config['container']):
         print("Container {} does not exist".format(config['container']))

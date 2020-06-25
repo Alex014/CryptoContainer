@@ -27,7 +27,7 @@ class CryptorRSA(BaseCryptor):
         return
 
     def generate(self):
-        (pubkey, privkey) = rsa.newkeys(self.rsa_bits)
+        (pubkey, privkey) = rsa.newkeys(self.rsa_bits, poolsize=4)
         pubkey_pkcs1 = pubkey.save_pkcs1()
         privkey_pkcs1 = privkey.save_pkcs1()
         return (pubkey_pkcs1, privkey_pkcs1)
