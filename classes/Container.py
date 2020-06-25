@@ -105,7 +105,7 @@ class Container:
             container = self.localStorage.get_encrypted_container(container_name)
 
         t = datetime.fromtimestamp(time.time())
-        container['container']['descr'] = 'Synhronized: ' + t.strftime("%Y-%m-%d %H:%M:%S:%S")
+        container['container']['synchronized'] = t.strftime("%Y-%m-%d %H:%M:%S:%S")
 
         # syncing users
         for username in container_data['users']:
@@ -140,7 +140,7 @@ class Container:
         if len(res):
             for container_filename in self.remoteStorage.containers:
                 if self.__sync_container(self.remoteStorage.containers[container_filename]):
-                    print("Syncronizing {} ... OK ".format(container_filename))
+                    print("Synchronizing {} ... OK ".format(container_filename))
                     self.decrypt(self.remoteStorage.containers[container_filename]['container']['name'])
                     print("Decrypting {} ... OK ".format(self.remoteStorage.containers[container_filename]['container']['name']))
         return True
