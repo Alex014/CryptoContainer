@@ -21,7 +21,9 @@ Blowfish - for private messages encryption
 * python cc.py Uuser1 - select user user1
 * python cc.py C+container1 - generate container1
 * python cc.py Ccontainer1 - select container1
-* python cc.py Fremote=/run/media/user/DDD/+upload=/run/media/user/DDD/+editor=nano - remote: remote dir to scan, upload: dir to upload containers, editor - nano 
+* python cc.py Fremote=/run/media/user/DDD/+upload=/run/media/user/DDD/+editor=nano - remote: remote dir to scan, upload: dir to upload containers, editor - nano
+ 
+ python3 and pip3 in Ubuntu
   
 ### Comands
  * C: container
