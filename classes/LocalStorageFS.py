@@ -319,10 +319,13 @@ class LocalStorageFS(BaseLocalStorage):
     def get_config(self):
         file_config = self.path_etc + '/config.json'
 
-        file = open(file_config, 'r')
-        s_config = file.read()
-        file.close()
-        return json.loads(s_config)
+        if os.path.isfile(file_config):
+            file = open(file_config, 'r')
+            s_config = file.read()
+            file.close()
+            return json.loads(s_config)
+        else:
+            return {}
 
     def save_config(self, config):
         file_config = self.path_etc + '/config.json'
