@@ -31,7 +31,7 @@ Blowfish - for private messages encryption
 * python cc.py C@ - saving current container
 * python cc.py C# - uploading current container on flash drive
 * python cc.py C^ - download and synchronize fresh copies of all containers 
-* P* and M* commands to PUBLIC and INBOX messages
+* P* and M* commands to view PUBLIC and INBOX messages
   
 ### Comands
  * C: container
