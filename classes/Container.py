@@ -96,7 +96,6 @@ class Container:
 
     def __sync_container(self, container_data):
         container_name = container_data['container']['name']
-        users = container_data['users']
 
         # Loading local container
         container = self.localStorage.get_encrypted_container(container_name)
@@ -109,7 +108,11 @@ class Container:
 
         # syncing users
         for username in container_data['users']:
-            container['users'][username] = container_data['users'][username]
+            if username not in container['users']:
+                container['users'][username] = container_data['users'][username]
+
+        # synchronized users
+        users = container['users']
 
         # checking msg
         for sig in container_data['msg']:
